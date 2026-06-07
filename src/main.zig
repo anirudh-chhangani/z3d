@@ -26,14 +26,14 @@ pub fn main(init: std.process.Init) !void {
     defer rl.closeWindow();
     const FPS = 60;
     rl.setTargetFPS(FPS);
-    const dz: f32 = 1;
+    var dz: f32 = 1;
     var angle: f32 = 0;
     // Main game loop
     while (!rl.windowShouldClose()) {
         rl.beginDrawing();
         defer rl.endDrawing();
         const dt: f32 = 1.0 / 60.0;
-        // dz += 1 * dt;
+        dz += 0.01 * dt;
         angle += dt * 3.14;
         clearScreen();
         // for (verticies) |v| {
