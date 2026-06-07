@@ -2,33 +2,22 @@
 
 const std = @import("std");
 const rl = @import("raylib");
+const penger = @import("penguin.zig");
+const cube = @import("cube.zig");
+const _point = @import("point.zig");
 
+const Point = _point.Point;
 const Io = std.Io;
 
 const z3d = @import("z3d");
 const screenWidth = 800;
 const screenHeight = 800;
 
-const verticies = [_]Point{
-    Point{ .x = 0.25, .y = 0.25, .z = 0.25 },
-    Point{ .x = -0.25, .y = 0.25, .z = 0.25 },
-    Point{ .x = -0.25, .y = -0.25, .z = 0.25 },
-    Point{ .x = 0.25, .y = -0.25, .z = 0.25 },
+// const verticies = cube.verticies;
+// const faces = cube.faces;
 
-    Point{ .x = 0.25, .y = 0.25, .z = -0.25 },
-    Point{ .x = -0.25, .y = 0.25, .z = -0.25 },
-    Point{ .x = -0.25, .y = -0.25, .z = -0.25 },
-    Point{ .x = 0.25, .y = -0.25, .z = -0.25 },
-};
-
-const faces = [_][]const i32{
-    &[_]i32{ 0, 1, 2, 3 },
-    &[_]i32{ 4, 5, 6, 7 },
-    &[_]i32{ 0, 4 },
-    &[_]i32{ 1, 5 },
-    &[_]i32{ 2, 6 },
-    &[_]i32{ 3, 7 },
-};
+const verticies = penger.vs;
+const faces = penger.fs;
 
 pub fn main(init: std.process.Init) !void {
     _ = init;
@@ -73,12 +62,6 @@ fn point(gpoint: Point, width: i32, height: i32, color: rl.Color) void {
     const size = rl.Vector2.init(@floatFromInt(width), @floatFromInt(height));
     rl.drawRectangleV(position, size, color);
 }
-
-const Point = struct {
-    x: f32,
-    y: f32,
-    z: f32,
-};
 
 fn screen(gpoint: Point) Point {
     const x = (gpoint.x + 1) / 2 * screenWidth;
