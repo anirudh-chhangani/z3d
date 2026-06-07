@@ -48,19 +48,19 @@ pub fn main(init: std.process.Init) !void {
                 line(p1, p2, .green);
             }
         }
-        rl.waitTime(0.001 / 60.0);
+        rl.waitTime(1.0 / 60.0);
     }
 }
 
 fn clearScreen() void {
     rl.clearBackground(.black);
-    rl.drawRectangle(0, 0, screenWidth, screenHeight, .black);
+    rl.drawPixel(screenWidth, screenHeight, .black);
 }
 
 fn point(gpoint: Point, width: i32, height: i32, color: rl.Color) void {
     const position = rl.Vector2.init(gpoint.x, gpoint.y);
-    const size = rl.Vector2.init(@floatFromInt(width), @floatFromInt(height));
-    rl.drawRectangleV(position, size, color);
+    _ = rl.Vector2.init(@floatFromInt(width), @floatFromInt(height));
+    rl.drawPixelV(position, color);
 }
 
 fn screen(gpoint: Point) Point {
